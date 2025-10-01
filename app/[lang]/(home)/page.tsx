@@ -1,3 +1,4 @@
+import { source } from '@/lib/source';
 import { DynamicLink } from 'fumadocs-core/dynamic-link';
 
 export default async function HomePage(props: PageProps<'/[lang]'>) {
@@ -18,4 +19,8 @@ export default async function HomePage(props: PageProps<'/[lang]'>) {
       </p>
     </main>
   );
+}
+
+export async function generateStaticParams() {
+  return source.generateParams();
 }

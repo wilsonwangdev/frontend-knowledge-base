@@ -7,14 +7,14 @@ export const revalidate = false;
 export const { staticGET: GET } = createFromSource(source, {
   localeMap: {
     // [locale]: Orama options
-    cn: {
-      components: {
-        tokenizer: createTokenizer()
-      },
-      search: {
-        threshold: 0,
-        tolerance: 0,
-      }
-    }
+    // cn: {
+    //   components: {
+    //     tokenizer: createTokenizer()
+    //   },
+    //   search: {
+    //     threshold: 0,
+    //     tolerance: 0,
+    //   }
+    // }
   }
 });

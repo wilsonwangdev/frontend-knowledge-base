@@ -1,0 +1,224 @@
+---
+title: Algorithms
+---
+
+## Common Algorithms
+
+### 1. Binary Search
+
+```js
+function binarySearch(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    if (arr[mid] === target) {
+      return mid;
+    } else if (arr[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+  return -1;
+}
+```
+### 2. Quick Sort
+
+```js 
+function quickSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+  const pivot = arr[0];
+  const left = [];
+  const right = [];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < pivot) {
+      left.push(arr[i]);
+    } else {
+      right.push(arr[i]);
+    }
+  }
+  return [...quickSort(left), pivot, ...quickSort(right)];
+}
+```
+### 3. Bubble Sort
+
+```js 
+function bubbleSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
+    }
+  }
+  return arr;
+}
+```
+### 4. Insertion Sort
+
+```js
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let j = i - 1;
+    const temp = arr[i];
+    while (j >= 0 && arr[j] > temp) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = temp;
+  }
+  return arr;
+}
+```
+### 5. Heap Sort
+
+```js 
+function heapSort(arr) {
+  function heapify(arr, n, i) {
+    let largest = i;
+    const left = 2 * i + 1;
+    const right = 2 * i + 2;
+    if (left < n && arr[left] > arr[largest]) {
+      largest = left;
+    }
+    if (right < n && arr[right] > arr[largest]) {
+      largest = right;
+    }
+    if (largest !== i) {
+      [arr[i], arr[largest]] = [arr[largest], arr[i]];
+      heapify(arr, n, largest);
+    }
+  }
+  const n = arr.length;
+  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+    heapify(arr, n, i);
+  }
+  for (let i = n - 1; i > 0; i--) {
+    [arr[0], arr[i]] = [arr[i], arr[0]];
+    heapify(arr, i, 0);
+  }
+  return arr;
+}
+```
+### 6. Merge Sort
+
+```js
+function mergeSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+  return merge(left, right);
+}
+function merge(left, right) {
+  const result = [];
+  while (left.length && right.length) {
+    if (left[0] < right[0]) {
+      result.push(left.shift());
+    } else {
+      result.push(right.shift());
+    }
+  }
+  return [...result, ...left, ...right];
+}
+```
+### 7. Shell Sort
+
+```js
+function shellSort(arr) {
+  let gap = Math.floor(arr.length / 2);
+  while (gap > 0) {
+    for (let i = gap; i < arr.length; i++) {
+      let j = i;
+      const temp = arr[i];
+      while (j >= gap && arr[j - gap] > temp) {
+        arr[j] = arr[j - gap];
+        j -= gap;
+      }
+      arr[j] = temp;
+    }
+    gap = Math.floor(gap / 2);
+  }
+  return arr;
+}
+```
+### 8. Counting Sort
+
+```js
+function countingSort(arr) {
+  const max = Math.max(...arr);
+  const min = Math.min(...arr);
+  const count = new Array(max - min + 1).fill(0);
+  for (let i = 0; i < arr.length; i++) {
+    count[arr[i] - min]++;
+  }
+  const result = [];
+  for (let i = 0; i < count.length; i++) {
+    while (count[i] > 0) {
+      result.push(i + min);
+      count[i]--;
+    }
+  }
+  return result;
+}
+```
+### 9. Bucket Sort
+
+```js 
+function bucketSort(arr, bucketSize = 5) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+  const min = Math.min(...arr);
+  const max = Math.max(...arr);
+  const bucketCount = Math.floor((max - min) / bucketSize) + 1;
+  const buckets = new Array(bucketCount).fill().map(() => []);
+  for (let i = 0; i < arr.length; i++) {
+    const bucketIndex = Math.floor((arr[i] - min) / bucketSize);
+    buckets[bucketIndex].push(arr[i]);
+  }
+  for (let i = 0; i < buckets.length; i++) {
+    buckets[i].sort((a, b) => a - b);
+  }
+  return buckets.flat();
+}
+```
+### 10. Radix Sort
+
+```js
+function radixSort(arr) {
+  const max = Math.max(...arr);
+  let divisor = 1;
+  while (divisor < max) {
+    const buckets = new Array(10).fill().map(() => []);
+    for (let i = 0; i < arr.length; i++) {
+      const bucketIndex = Math.floor((arr[i] / divisor) % 10);
+      buckets[bucketIndex].push(arr[i]);
+    }
+    arr = buckets.flat();
+    divisor *= 10;
+  }
+  return arr;
+}
+```
+### 11. Selection Sort
+
+```js
+function selectionSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let min = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[min]) {
+        min = j;
+      }
+    }
+    [arr[i], arr[min]] = [arr[min], arr[i]];
+  }
+  return arr;
+}
+```

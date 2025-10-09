@@ -1,0 +1,24 @@
+---
+title: Level Traversal
+---
+
+Level Traversal is a traversal algorithm that traverses a binary tree level by level. It is also known as Breadth-First Search (BFS).
+
+The algorithm works by using a queue to store the nodes of the tree. The algorithm starts by adding the root node to the queue. Then, it removes the first node from the queue and adds its children to the queue. This process is repeated until the queue is empty.
+
+```js
+function levelTraversal(root) {
+  const queue = [root];
+  const result = [];
+
+  while (queue.length) {
+    const node = queue.shift();
+    result.push(node.val);
+
+    if (node.left) queue.push(node.left);
+    if (node.right) queue.push(node.right);
+  }
+
+  return result;
+}
+```

@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "index",
+    "quickSort",
+    "mergeSort",
+    "bubbleSort",
+    "insertionSort",
+    "selectionSort",
+    "heapSort",
+    "countingSort",
+    "radixSort",
+    "bucketSort",
+    "shellSort"
+  ]
+}

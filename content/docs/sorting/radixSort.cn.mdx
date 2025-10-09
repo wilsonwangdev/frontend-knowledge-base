@@ -1,0 +1,20 @@
+---
+title: 基数排序
+---
+
+```js
+function radixSort(arr) {
+  const max = Math.max(...arr);
+  let divisor = 1;
+  while (divisor < max) {
+    const buckets = new Array(10).fill().map(() => []);
+    for (let i = 0; i < arr.length; i++) {
+      const bucketIndex = Math.floor((arr[i] / divisor) % 10);
+      buckets[bucketIndex].push(arr[i]);
+    }
+    arr = buckets.flat();
+    divisor *= 10;
+  }
+  return arr;
+}
+```

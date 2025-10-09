@@ -1,0 +1,12 @@
+---
+title: DFS(Depth First Search)
+---
+
+```js
+const dfs = (node) => {
+  if (!node) return;
+  console.log(node.val);
+  dfs(node.left);
+  dfs(node.right);
+};
+```

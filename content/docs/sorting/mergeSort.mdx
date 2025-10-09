@@ -1,0 +1,33 @@
+---
+title: Merge Sort
+---
+
+Merge sortis a divide and conquer algorithm that divides a list into equal halves until it has two single elements and then merges the sub-lists until the entire list is sorted.
+
+```js
+function mergeSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+  return merge(left, right);
+}
+function merge(left, right) {
+  const result = [];
+  while (left.length && right.length) {
+    if (left[0] < right[0]) {
+      result.push(left.shift());
+    } else {
+      result.push(right.shift());
+    }
+  }
+  return [...result, ...left, ...right];
+}
+```
+
+## Complexity
+
+- Time Complexity: O(n log n)
+- Space Complexity: O(n)

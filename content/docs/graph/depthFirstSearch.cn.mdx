@@ -1,0 +1,12 @@
+---
+title: 深度优先搜索
+---
+
+```js
+const dfs = (node) => {
+  if (!node) return;
+  console.log(node.val);
+  dfs(node.left);
+  dfs(node.right);
+};
+```

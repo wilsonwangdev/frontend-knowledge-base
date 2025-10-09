@@ -1,0 +1,20 @@
+---
+title: BFS(Breadth First Search)
+---
+
+```js
+const bfs = (startNode) => {
+  const visited = [];
+  const needVisit = [];
+  needVisit.push(startNode);
+
+  while (needVisit.length !== 0) {
+    const node = needVisit.shift();
+    if (!visited.includes(node)) {
+      visited.push(node);
+      needVisit.push(...graph[node]);
+    }
+  }
+  return visited;
+};
+```

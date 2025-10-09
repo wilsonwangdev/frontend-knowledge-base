@@ -11,6 +11,9 @@ importers:
       '@orama/tokenizers':
         specifier: ^3.1.14
         version: 3.1.14
+      '@wilsonwangdev/libs':
+        specifier: ^0.0.1
+        version: 0.0.1
       fumadocs-core:
         specifier: 15.8.1
         version: 15.8.1(@types/react@19.1.16)(next@15.5.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -1429,6 +1432,9 @@ packages:
 
   '@vitest/utils@3.2.4':
     resolution: {integrity: sha512-fB2V0JFrQSMsCo9HiSq3Ezpdv4iYaXRG1Sx8edX3MwxfyNn83mKiGzOcH+Fkxt4MHxr3y42fQi1oeAInqgX2QA==}
+
+  '@wilsonwangdev/libs@0.0.1':
+    resolution: {integrity: sha512-88tLLMA0FLbda4NXosaSHG/HgK39i8Ubm2XLhQFMbNFG2N+hq3Hfn3JxVifZH85ay09lJJdxJG9kGw8T1sHKSw==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -4790,6 +4796,8 @@ snapshots:
       '@vitest/pretty-format': 3.2.4
       loupe: 3.2.1
       tinyrainbow: 2.0.0
+
+  '@wilsonwangdev/libs@0.0.1': {}
 
   acorn-jsx@5.3.2(acorn@8.15.0):
     dependencies:

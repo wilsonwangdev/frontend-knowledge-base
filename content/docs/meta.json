@@ -3,6 +3,7 @@
     "sorting",
     "searching",
     "binaryTree",
-    "graph"
-  ]
+    "modules"
+  ],
+  "defaultOpen": true
 }

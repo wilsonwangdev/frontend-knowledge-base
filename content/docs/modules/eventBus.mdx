@@ -3,3 +3,19 @@ title: EventBus
 ---
 
 EventBus is a simple event bus implementation that allows you to subscribe to events and publish events to other components.
+
+## Implementation
+
+See [EventBus.ts](https://github.com/wilsonwangdev/libs/blob/main/src/EventBus.ts)
+
+##  Usage
+
+```ts
+const eventBus = new EventBus();
+
+eventBus.on('event', (data) => {
+  console.log(data);
+});
+
+eventBus.emit('event', 'Hello World');
+```

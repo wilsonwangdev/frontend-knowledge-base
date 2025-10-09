@@ -11,5 +11,6 @@
     "radixSort",
     "bucketSort",
     "shellSort"
-  ]
+  ],
+  "defaultOpen": true
 }

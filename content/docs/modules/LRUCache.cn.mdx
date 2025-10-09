@@ -1,0 +1,54 @@
+---
+title: LRU Cache
+---
+
+LRU  Cache is a cache data structure that holds a limited number of key-value pairs. When the cache is full, the least recently used key-value pair is removed to make room for a new one.
+
+## Implementation
+
+```typescript
+class LRUCache {
+  private cache: Map<string, any>;
+  private capacity: number;
+
+  constructor(capacity: number) {
+    this.cache = new Map();
+    this.capacity = capacity;
+  }
+
+  get(key: string): any {
+    if (!this.cache.has(key)) {
+      return -1;
+    }
+
+    const value = this.cache.get(key);
+    this.cache.delete(key);
+    this.cache.set(key, value);
+
+    return value;
+  }
+
+  put(key: string, value: any): void {
+    if (this.cache.has(key)) {
+      this.cache.delete(key);
+    } else if (this.cache.size >= this.capacity) {
+      const firstKey = this.cache.keys().next().value;
+      this.cache.delete(firstKey);
+    }
+
+    this.cache.set(key, value);
+  }
+}
+```
+## Usage
+
+```typescript
+const cache = new LRUCache(2);
+
+cache.put("key1", "value1");
+cache.put("key2", "value2");
+cache.get("key1"); // returns "value1"
+cache.put("key3", "value3"); // evicts key2
+cache.get("key2"); // returns -1 (not found)
+cache.get("key3"); // returns "value3"
+```

@@ -1,0 +1,22 @@
+---
+title: Two Sum
+---
+
+The two sum problem is a classic interview question. Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+The key to this problem is to use a hash table to store the complement of the current number. This is because we can use the complement to find the other number in the array.
+
+```js
+function twoSum(nums, target) {
+  const map = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    if (map.has(complement)) {
+      return [map.get(complement), i];
+    }
+    map.set(nums[i], i);
+  }
+}
+```

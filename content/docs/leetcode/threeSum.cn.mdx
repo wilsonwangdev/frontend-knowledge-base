@@ -1,0 +1,45 @@
+---
+title: 三数之和
+---
+
+The three sum problem is a classic problem in computer science. The problem is to find all the unique triplets in an array that sum up to a given target value.
+
+For example, given an array of integers `[-1, 0, 1, 2, -1, -4]` and a target value of `0`, the function should return `[[-1, 0, 1], [-1, -1, 2]]`.
+
+The key to solving this problem is to use a two-pointer approach. We can sort the array and then iterate through it, fixing one number at a time. For each fixed number, we can then use two pointers to find the other two numbers that sum up to the target value.
+
+```js
+function threeSum(nums, target) {
+  nums.sort((a, b) => a - b);
+  const result = [];
+
+  for (let i = 0; i < nums.length - 2; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
+
+    let left = i + 1;
+    let right = nums.length - 1;
+
+    while (left < right) {
+      const sum = nums[i] + nums[left] + nums[right];
+
+      if (sum === target) {
+        result.push([nums[i], nums[left], nums[right]]);
+
+        while (left < right && nums[left] === nums[left + 1]) left++;
+        while (left < right && nums[right] === nums[right - 1]) right--;
+
+        left++;
+        right--;
+      } else if (sum < target) {
+        left++;
+      } else {
+        right--;
+      }
+    }
+  }
+
+  return result;
+}
+```
+
+This solution has a time complexity of `O(n^2)`, where `n` is the length of the input array. This is because we are iterating through the array once, and for each iteration, we are using two pointers to find the other two numbers that sum up to the target value. The space complexity is also `O(n)`, since we are storing the result in an array.

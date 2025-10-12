@@ -1,0 +1,48 @@
+---
+title: Event
+---
+
+DOM Events are used to notify the user that something has happened. For example, when a user clicks on an element, a click event is sent to the browser.
+
+See: https://developer.mozilla.org/en-US/docs/Web/API/Event
+
+## Examples
+
+```js
+const button = document.getElementById('myButton');
+button.addEventListener('click', function() {
+  console.log('Button clicked!');
+});
+```
+
+In React, events are handled using event handlers. Event handlers are functions that are called when an event occurs. For example, the `onClick` event handler is called when a user clicks on an element.
+
+```jsx
+function handleClick() {
+  console.log('Button clicked!');
+}
+
+return (
+  <button onClick={handleClick}>Click me</button>
+);
+```
+
+## Tricks
+
+Event Delegation is a pattern that allows you to handle events on a parent element and then delegate the event to the appropriate child element. This is useful for handling events on a large number of elements.
+
+```js
+const parent = document.getElementById('ul');
+parent.addEventListener('click', function(event) {
+  console.log(event.target);
+});
+```
+
+## Key Points
+
+- Event capture is disabled by default
+- target refers to the element on which the event was initially fired, while currentTarget refers to the element to which this event handler has been attached (target remains the same while an event bubbles up, currentTarget will be different for event handlers that are attached to different elements in the hierarchy) 
+- The Event object has a function available on it called stopPropagation() which, when called inside an event handler, prevents the event from bubbling up to any other elements
+
+See: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Event_bubbling
+

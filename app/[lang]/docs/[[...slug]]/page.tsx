@@ -9,7 +9,17 @@ import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/mdx-components';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
-import { getGithubLastEdit } from 'fumadocs-core/server';
+import * as Preview from '@/components/preview';
+import { type ReactNode } from 'react';
+
+function PreviewRenderer({ preview }: { preview: string }): ReactNode {
+  if (preview && preview in Preview) {
+    const Comp = Preview[preview as keyof typeof Preview];
+    return <Comp />;
+  }
+
+  return null;
+}
 
 export default async function Page(
   props: PageProps<'/[lang]/docs/[[...slug]]'>
@@ -19,23 +29,18 @@ export default async function Page(
   const page = source.getPage(slug, lang);
   if (!page) notFound();
 
-  const MDX = page.data.body;
-
-  const time = await getGithubLastEdit({
-    owner: 'fuma-nama',
-    repo: 'fumadocs',
-    path: `content/docs/${page.path}`,
-  }) || '';
+  const { body: MDX, lastModified, preview } = page.data;
 
   return (
     <DocsPage
       toc={page.data.toc}
       full={page.data.full}
-      lastUpdate={time}
+      lastUpdate={lastModified ? new Date(lastModified) : undefined}
     >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
+        {preview ? <PreviewRenderer preview={preview} /> : null}
         <MDX
           components={getMDXComponents({
             // this allows you to link to other pages with relative file paths

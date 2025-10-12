@@ -1,0 +1,73 @@
+---
+title: Custom Directive
+---
+
+import { DynamicCodeBlock } from '@/components/preview/lazy';
+
+<DynamicCodeBlock langType={"typescript"} codeString={`import type { OnClickOutsideHandler, OnClickOutsideOptions } from '@vueuse/core'
+import type { Fn } from '@vueuse/shared'
+import type { ObjectDirective } from 'vue'
+import { onClickOutside } from '@vueuse/core'
+
+type StopHandle = Fn | { stop: Fn, cancel: Fn, trigger: (event: Event) => void }
+
+const stopClickOutsideMap = new WeakMap<HTMLElement, StopHandle>()
+
+export const vOnClickOutside: ObjectDirective<
+    HTMLElement,
+    OnClickOutsideHandler | [(evt: any) => void, Omit<OnClickOutsideOptions, 'controls'>]
+> = {
+    mounted(el, binding) {
+      const capture = !binding.modifiers.bubble
+      let stop: StopHandle
+      if (typeof binding.value === 'function') {
+        stop = onClickOutside(el, binding.value, { capture })
+      }
+      else {
+        const [handler, options] = binding.value
+        stop = onClickOutside(el, handler, Object.assign({ capture }, options))
+      }
+      stopClickOutsideMap.set(el, stop)
+    },
+    unmounted(el) {
+      const stop = stopClickOutsideMap.get(el)
+      if (stop && typeof stop === 'function') {
+        stop()
+      }
+      else {
+        stop?.stop()
+      }
+      stopClickOutsideMap.delete(el)
+    },
+}
+
+export const VOnClickOutside = vOnClickOutside`} />
+
+See: https://github.com/vueuse/vueuse/blob/6c4294daba22557fdb600d76895b76c8ea102af1/packages/core/onClickOutside/index.ts#L75
+
+## Simple Version
+
+```ts
+export const vOnClickOutside = {
+  mounted(el, binding) {
+    el.clickOutsideEvent = (event) => {
+      if (!(el === event.target || el.contains(event.target))) {
+        binding.value(event)
+      }
+    }
+    document.addEventListener('click', el.clickOutsideEvent);
+  },
+  unmounted(el) {
+    document.removeEventListener('click', el.clickOutsideEvent);
+  },
+}
+```
+
+See: https://medium.com/@stjepan.crncic/crafting-a-simple-click-outside-directive-in-vue-3-980c55ab1a65
+
+## Key Points
+
+- el is the element the directive is bound to. This can be used to directly manipulate the DOM
+- binding is an object containing the following properties, binding.value is the value passed to the directive
+
+See: https://vuejs.org/guide/reusability/custom-directives.html#custom-directives

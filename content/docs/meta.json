@@ -1,6 +1,10 @@
 {
   "pages": [
+    "basic",
     "algorithms",
+    "design-patterns",
+    "frameworks",
+    "web",
     "modules"
   ]
 }

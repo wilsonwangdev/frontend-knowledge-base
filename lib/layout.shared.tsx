@@ -36,6 +36,11 @@ export function baseOptions(locale: string): BaseLayoutProps {
         text: locale === 'cn' ? '文档' : 'Documentations',
         url: `/${locale}/docs`,
       },
+      {
+        type: 'main',
+        text: locale === 'cn' ? '游乐场' : 'Playground',
+        url: `/${locale}/playground`,
+      },
     ],
   };
 }

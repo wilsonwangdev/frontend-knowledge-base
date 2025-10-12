@@ -1,7 +1,7 @@
 {
   "pages": [
     "twoSum",
-    "ThreeSum",
-    "FourSum"
+    "threeSum",
+    "fourSum"
   ]
 }

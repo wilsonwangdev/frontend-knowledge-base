@@ -1,0 +1,56 @@
+---
+title: Bridge
+---
+
+Bridge pattern is a structural design pattern that separates the abstraction from the implementation, allowing them to vary independently.
+
+## Implementation
+
+
+```ts
+interface Color {
+  applyColor(): void;
+}
+
+class Red implements Color {
+  applyColor(): void {
+    console.log("Applying red color");
+  }
+}
+
+class Blue implements Color {
+  applyColor(): void {
+    console.log("Applying blue color");
+  }
+}
+
+abstract class Shape {
+  protected color: Color;
+
+  constructor(color: Color) {
+    this.color = color;
+  }
+
+  abstract draw(): void;
+}
+
+class Circle extends Shape {
+  draw(): void {
+    console.log("Drawing a circle");
+    this.color.applyColor();
+  }
+}
+
+class Square extends Shape {
+  draw(): void {
+    console.log("Drawing a square");
+    this.color.applyColor();
+  }
+}
+
+const redCircle = new Circle(new Red());
+redCircle.draw();
+
+const blueSquare = new Square(new Blue());
+blueSquare.draw();
+```

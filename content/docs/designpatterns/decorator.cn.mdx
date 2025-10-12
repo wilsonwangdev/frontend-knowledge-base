@@ -1,0 +1,33 @@
+---
+title: Decorator
+---
+
+Decorator pattern is used to add new functionality to an existing object without altering its structure. Decorators provide a flexible alternative to subclassing for extending functionality.
+
+## Example
+
+```tsx
+import { Component } from 'react';
+
+interface ComponentProps {
+  name: string;
+}
+
+function withName<T extends ComponentProps>(WrappedComponent: Component<T>) {
+  return class extends Component<T> {
+    render() {
+      return <WrappedComponent {...this.props} />;
+    }
+  };
+}
+
+class MyComponent extends Component<ComponentProps> {
+  render() {
+    return <div>{this.props.name}</div>;
+  }
+}
+
+const MyComponentWithName = withName(MyComponent);
+
+<MyComponentWithName name="John" />;
+```

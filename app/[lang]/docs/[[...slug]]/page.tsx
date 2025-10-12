@@ -9,8 +9,11 @@ import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/mdx-components';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
+import { getGithubLastEdit } from 'fumadocs-core/server';
 
-export default async function Page(props: PageProps<'/[lang]/docs/[[...slug]]'>) {
+export default async function Page(
+  props: PageProps<'/[lang]/docs/[[...slug]]'>
+) {
   const params = await props.params;
   const { slug, lang } = params;
   const page = source.getPage(slug, lang);
@@ -18,8 +21,18 @@ export default async function Page(props: PageProps<'/[lang]/docs/[[...slug]]'>)
 
   const MDX = page.data.body;
 
+  const time = await getGithubLastEdit({
+    owner: 'fuma-nama',
+    repo: 'fumadocs',
+    path: `content/docs/${page.path}`,
+  }) || '';
+
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
+    <DocsPage
+      toc={page.data.toc}
+      full={page.data.full}
+      lastUpdate={time}
+    >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
@@ -39,7 +52,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  props: PageProps<'/[lang]/docs/[[...slug]]'>,
+  props: PageProps<'/[lang]/docs/[[...slug]]'>
 ): Promise<Metadata> {
   const params = await props.params;
   const page = source.getPage(params.slug);

@@ -1,9 +1,6 @@
 {
   "pages": [
-    "sorting",
-    "searching",
-    "binaryTree",
+    "algorithms",
     "modules"
-  ],
-  "defaultOpen": true
+  ]
 }

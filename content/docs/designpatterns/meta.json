@@ -1,0 +1,27 @@
+{
+  "pages": [
+    "singleton",
+    "factory",
+    "abstractfactory",
+    "builder",
+    "prototype",
+    "adapter",
+    "bridge",
+    "composite",
+    "decorator",
+    "facade",
+    "flyweight",
+    "proxy",
+    "chainofresponsibility",
+    "command",
+    "interpreter",
+    "iterator",
+    "mediator",
+    "memento",
+    "observer",
+    "state",
+    "strategy",
+    "templatemethod",
+    "visitor"
+  ]
+}

@@ -1,0 +1,69 @@
+---
+title: Facade
+---
+
+Facade pattern is a structural design pattern that provides a simplified interface to a complex system of classes, library or framework.
+
+It is often used in situations where a system is very complex or difficult to understand because the system contains many interacting parts, so this pattern lets you access only those parts that are necessary.
+
+
+## Implementation
+
+In this example, we have a `Computer` class that represents a complex system with many interacting parts. The `Computer` class has a `start` method that starts the computer and calls the `startCPU`, `startMemory`, and `startHardDrive` methods of the `CPU`, `Memory`, and `HardDrive` classes, respectively.
+
+The `Computer` class is the facade class that provides a simplified interface to the complex system. The `ComputerFacade` class is the facade class that provides a simplified interface to the `Computer` class.
+
+The `ComputerFacade` class has a `start` method that calls the `start` method of the `Computer` class. The `ComputerFacade` class is the client class that uses the `ComputerFacade` class to start the computer.
+
+```typescript
+class CPU {
+  start() {
+    console.log('CPU started');
+  }
+}
+
+class Memory {
+  start() {
+    console.log('Memory started');
+  }
+}
+
+class HardDrive {
+  start() {
+    console.log('Hard drive started');
+  }
+}
+
+class Computer {
+  private cpu: CPU;
+  private memory: Memory;
+  private hardDrive: HardDrive;
+
+  constructor() {
+    this.cpu = new CPU();
+    this.memory = new Memory();
+    this.hardDrive = new HardDrive();
+  }
+
+  start() {
+    this.cpu.start();
+    this.memory.start();
+    this.hardDrive.start();
+  }
+}
+
+class ComputerFacade {
+  private computer: Computer;
+
+  constructor() {
+    this.computer = new Computer();
+  }
+
+  start() {
+    this.computer.start();
+  }
+}
+
+const computerFacade = new ComputerFacade();
+computerFacade.start();
+```

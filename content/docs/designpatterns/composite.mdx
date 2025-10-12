@@ -1,0 +1,41 @@
+---
+title: Composite
+---
+
+Composite pattern is a structural design pattern that lets you compose objects into tree structures and then work with these structures as if they were individual objects.
+
+Use the Composite pattern when you have to implement a tree-like object structure.
+Use the pattern when you want the client code to treat both simple and complex elements uniformly.
+
+
+## Implementation
+
+
+```ts
+interface Component {
+  operation(): string;
+}
+
+class Leaf implements Component {
+  operation(): string {
+    return "Leaf";
+  }
+}
+
+class Composite implements Component {
+  private children: Component[] = [];
+
+  add(component: Component): void {
+    this.children.push(component);
+  }
+
+  operation(): string {
+    const results = [];
+    for (const child of this.children) {
+      results.push(child.operation());
+    }
+
+    return `Branch(${results.join("+")})`;
+  }
+}
+```

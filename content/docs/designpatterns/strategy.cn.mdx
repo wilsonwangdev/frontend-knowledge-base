@@ -1,0 +1,74 @@
+---
+title: Strategy
+---
+
+Strategy pattern is a behavioral software design pattern that enables selecting an algorithm at runtime. The Strategy pattern lets the algorithm vary independently from clients that use it.
+
+The Strategy pattern is also known as Policy.
+
+## When to use it?
+
+- When you want to use different variants of an algorithm within an object and be able to switch from one algorithm to another during runtime.
+- When you have a lot of similar classes that only differ in the way they execute some behavior.
+- When you need to use one of several behaviors dynamically.
+- When you need to configure an object with one of various behaviors.
+
+## How to implement it?
+
+- Create base strategy interface.
+- Create concrete strategy classes.
+- Create context class.
+- Create client class.
+
+## Example
+
+```ts
+interface Strategy {
+  execute(a: number, b: number): number;
+}
+
+class ConcreteStrategyAdd implements Strategy {
+  execute(a: number, b: number): number {
+    return a + b;
+  }
+}
+
+class ConcreteStrategySubtract implements Strategy {
+  execute(a: number, b: number): number {
+    return a - b;
+  }
+}
+
+class ConcreteStrategyMultiply implements Strategy {
+  execute(a: number, b: number): number {
+    return a * b;
+  }
+}
+
+class Context {
+  private strategy: Strategy;
+
+  constructor(strategy: Strategy) {
+    this.strategy = strategy;
+  }
+
+  executeStrategy(a: number, b: number): number {
+    return this.strategy.execute(a, b);
+  }
+}
+
+class Client {
+  constructor() {
+    const context = new Context(new ConcreteStrategyAdd());
+    console.log(context.executeStrategy(1, 2));
+
+    context.strategy = new ConcreteStrategySubtract();
+    console.log(context.executeStrategy(1, 2));
+
+    context.strategy = new ConcreteStrategyMultiply();
+    console.log(context.executeStrategy(1, 2));
+  }
+}
+
+new Client();
+```

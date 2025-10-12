@@ -1,0 +1,81 @@
+---
+title: State
+---
+
+State pattern is a behavioral software design pattern that allows an object to alter its behavior when its internal state changes. The object will appear to change its class.
+
+The State pattern is used in computer programming to encapsulate varying behavior for the same object, based on its current state. This is one of the standard behavior-patterns. The State pattern is used in concurrent programming, database programming, the Memento pattern, and in software testing. The pattern's behavior is similar to the Strategy pattern, except in its behavior, the State pattern uses multiple different states that affect the behavior of the object.
+
+## Example
+
+```js
+class Order {
+  constructor() {
+    this.state = new WaitingForPayment();
+  }
+
+  nextState() {
+    this.state = this.state.next();
+  }
+
+  cancelOrder() {
+    this.state = this.state.cancel();
+  }
+}
+
+class WaitingForPayment {
+  constructor() {
+    this.name = "waitingForPayment";
+  }
+
+  next() {
+    return new Shipping();
+  }
+
+  cancel() {
+    return new Cancelled();
+  }
+}
+
+class Shipping {
+  constructor() {
+    this.name = "shipping";
+  }
+
+  next() {
+    return new Delivered();
+  }
+
+  cancel() {
+    return new Cancelled();
+  }
+}
+
+class Delivered {
+  constructor() {
+    this.name = "delivered";
+  }
+
+  next() {
+    return this;
+  }
+
+  cancel() {
+    return new Cancelled();
+  }
+}
+
+class Cancelled {
+  constructor() {
+    this.name = "cancelled";
+  }
+
+  next() {
+    return this;
+  }
+
+  cancel() {
+    return this;
+  }
+}
+```

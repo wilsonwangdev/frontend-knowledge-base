@@ -1,0 +1,30 @@
+---
+title: Iterator
+---
+
+Iterator pattern is a behavioral design pattern that allows sequential traversal through a complex data structure without exposing its internal details.
+
+## Example
+
+```js
+function* iterate(array) {
+  for (let i = 0; i < array.length; i++) {
+    yield array[i];
+  }
+}
+
+const it = iterate([1, 2, 3]);
+
+console.log(it.next().value); // 1
+console.log(it.next().value); // 2
+console.log(it.next().value); // 3
+console.log(it.next().value); // undefined
+```
+## Usage
+
+```js
+const it = new Iterator([1, 2, 3]);
+while (it.hasNext()) {
+  console.log(it.next());
+}
+```

@@ -1,0 +1,89 @@
+---
+title: Visitor
+---
+
+Visitor pattern is a behavioral design pattern that allows you to separate algorithms from the objects on which they operate.
+
+It is a way to add new operations to objects without modifying them.
+
+## Example
+
+```ts
+interface Visitor {
+  visitConcreteElementA(element: ConcreteElementA): void;
+  visitConcreteElementB(element: ConcreteElementB): void;
+}
+
+interface Element {
+  accept(visitor: Visitor): void;
+}
+
+class ConcreteElementA implements Element {
+  accept(visitor: Visitor): void {
+    visitor.visitConcreteElementA(this);
+  }
+
+  operationA(): void {
+    console.log('ConcreteElementA.operationA');
+  }
+}
+
+class ConcreteElementB implements Element {
+  accept(visitor: Visitor): void {
+    visitor.visitConcreteElementB(this);
+  }
+
+  operationB(): void {
+    console.log('ConcreteElementB.operationB');
+  }
+}
+
+class ConcreteVisitor1 implements Visitor {
+  visitConcreteElementA(element: ConcreteElementA): void {
+    console.log('ConcreteVisitor1.visitConcreteElementA');
+    element.operationA();
+  }
+
+  visitConcreteElementB(element: ConcreteElementB): void {
+    console.log('ConcreteVisitor1.visitConcreteElementB');
+    element.operationB();
+  }
+}
+
+class ConcreteVisitor2 implements Visitor {
+  visitConcreteElementA(element: ConcreteElementA): void {
+    console.log('ConcreteVisitor2.visitConcreteElementA');
+    element.operationA();
+  }
+
+  visitConcreteElementB(element: ConcreteElementB): void {
+    console.log('ConcreteVisitor2.visitConcreteElementB');
+    element.operationB();
+  }
+}
+
+const elements: Element[] = [new ConcreteElementA(), new ConcreteElementB()];
+
+const visitor1 = new ConcreteVisitor1();
+const visitor2 = new ConcreteVisitor2();
+
+for (const element of elements) {
+  element.accept(visitor1);
+}
+
+for (const element of elements) {
+  element.accept(visitor2);
+}
+```
+## Output
+
+```ts
+ConcreteVisitor1.visitConcreteElementA
+ConcreteElementA.operationA
+ConcreteVisitor1.visitConcreteElementB
+ConcreteElementB.operationB
+ConcreteVisitor2.visitConcreteElementA
+ConcreteElementA.operationA
+ConcreteVisitor2.visitConcreteElementB
+ConcreteElementB.operationB
+```

@@ -1,0 +1,50 @@
+---
+title: Chain of Responsibility
+---
+
+Chain of Responsibility is a behavioral design pattern that lets you pass requests along a chain of handlers. Upon receiving a request, each handler decides either to process the request or to pass it to the next handler in the chain.
+
+## Usage
+
+```js
+class Handler {
+  constructor(nextHandler) {
+    this.nextHandler = nextHandler;
+  }
+
+  handle(request) {
+    if (this.nextHandler) {
+      return this.nextHandler.handle(request);
+    }
+
+    return null;
+  }
+}
+
+class ConcreteHandler1 extends Handler {
+  handle(request) {
+    if (request === 'request1') {
+      return 'ConcreteHandler1';
+    }
+
+    return super.handle(request);
+  }
+}
+
+class ConcreteHandler2 extends Handler {
+  handle(request) {
+    if (request === 'request2') {
+      return 'ConcreteHandler2';
+    }
+
+    return super.handle(request);
+  }
+}
+
+const handler1 = new ConcreteHandler1();
+const handler2 = new ConcreteHandler2(handler1);
+
+console.log(handler2.handle('request1')); // ConcreteHandler1
+console.log(handler2.handle('request2')); // ConcreteHandler2
+console.log(handler2.handle('request3')); // null
+```

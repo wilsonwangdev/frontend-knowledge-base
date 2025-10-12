@@ -12,6 +12,7 @@ export function baseOptions(locale: string): BaseLayoutProps {
   return {
     i18n,
     nav: {
+      transparentMode: 'top',
       title: (
         <>
           <svg
@@ -22,7 +23,7 @@ export function baseOptions(locale: string): BaseLayoutProps {
           >
             <circle cx={12} cy={12} r={12} fill="currentColor" />
           </svg>
-          { locale === 'cn' ? '前端知识库' : 'Frontend Knowledge Base'}
+          {locale === 'cn' ? '前端知识库' : 'Frontend Knowledge Base'}
         </>
       ),
       url: `/${locale}`,
@@ -32,9 +33,9 @@ export function baseOptions(locale: string): BaseLayoutProps {
     links: [
       {
         type: 'main',
-        text: locale === 'cn' ? '文档' : 'Documentation',
-        url: `/${locale}/docs`
-      }
+        text: locale === 'cn' ? '文档' : 'Documentations',
+        url: `/${locale}/docs`,
+      },
     ],
   };
 }

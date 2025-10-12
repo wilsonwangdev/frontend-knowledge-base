@@ -1,0 +1,42 @@
+---
+title: Command
+---
+
+Command pattern is a behavioral design pattern that turns a request into a stand-alone object that contains all information about the request. This transformation lets you parameterize methods with different requests, delay or queue a request’s execution, and support undoable operations.
+
+## Implementation
+
+```typescript
+interface Command {
+  execute(): void;
+}
+class SimpleCommand implements Command {
+  private payload: string;
+
+  constructor(payload: string) {
+    this.payload = payload;
+  }
+
+  public execute(): void {
+    console.log(`SimpleCommand: I can do simple things like printing (${this.payload})`);
+  }
+}
+class ComplexCommand implements Command {
+  private receiver: Receiver;
+  private a: string;
+  private b: string;
+
+  constructor(receiver: Receiver, a: string, b: string) {
+    this.receiver = receiver;
+    this.a = a;
+    this.b = b;
+  }
+
+  public execute(): void {
+    console.log('ComplexCommand: Complex stuff should be done by a receiver object');
+    this.receiver.doSomething(this.a);
+    this.receiver.doSomethingElse(this.b);
+  }
+}
+```
+    

@@ -1,0 +1,23 @@
+---
+title: Prototype
+---
+
+Prototype pattern is a creational design pattern that allows you to create new objects by cloning an existing object, without knowing the details of the object's creation process. This pattern is useful when you want to create new objects based on an existing object, without modifying the existing object's code.
+
+## Example
+
+```js
+class Car {
+  constructor(model, price) {
+    this.model = model;
+    this.price = price;
+  }
+
+  clone() {
+    return new Car(this.model, this.price);
+  }
+}
+
+const car1 = new Car("BMW", 100000);
+const car2 = car1.clone();
+```

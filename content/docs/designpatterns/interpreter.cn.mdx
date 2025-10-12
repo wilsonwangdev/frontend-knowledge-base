@@ -1,0 +1,80 @@
+---
+title: Interpreter
+---
+
+Interpreter pattern is used to convert one representation of a data into another.
+This type of pattern comes under behavioral pattern. It uses a class to represent the given language.
+This pattern involves implementing an expression interface which tells to interpret a particular context.
+It is usually used in the cases where we have a class that invokes its method on the runtime value and we don't know the exact type of the class.
+In the implementation of the expression interface, just check the class of the object and then convert the object into a different object.
+
+```js
+class Expression {
+  constructor(expression) {
+    this.expression = expression;
+  }
+
+  interpret(context) {
+    if (context.split(" ").indexOf(this.expression) != -1) {
+      return true;
+    }
+    return false;
+  }
+}
+
+class TerminalExpression extends Expression {
+  constructor(data) {
+    super(data);
+  }
+
+  interpret(context) {
+    let result = context.split(" ").indexOf(this.expression);
+    if (result != -1) {
+      return true;
+    }
+    return false;
+  }
+}
+
+class OrExpression extends Expression {
+  constructor(expr1, expr2) {
+    super();
+    this.expr1 = expr1;
+    this.expr2 = expr2;
+  }
+
+  interpret(context) {
+    return this.expr1.interpret(context) || this.expr2.interpret(context);
+  }
+}
+
+class AndExpression extends Expression {
+  constructor(expr1, expr2) {
+    super();
+    this.expr1 = expr1;
+    this.expr2 = expr2;
+  }
+
+  interpret(context) {
+    return this.expr1.interpret(context) && this.expr2.interpret(context);
+  }
+}
+
+function getMaleExpression() {
+  let robert = new TerminalExpression("Robert");
+  let john = new TerminalExpression("John");
+  return new OrExpression(robert, john);
+}
+
+function getMarriedWomanExpression() {
+  let julie = new TerminalExpression("Julie");
+  let married = new TerminalExpression("Married");
+  return new AndExpression(julie, married);
+}
+
+let isMale = getMaleExpression();
+let isMarriedWoman = getMarriedWomanExpression();
+
+console.log("John is male? " + isMale.interpret("John"));
+console.log("Julie is a married women? " + isMarriedWoman.interpret("Married Julie"));
+```

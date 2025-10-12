@@ -1,0 +1,55 @@
+---
+title: Adapter
+---
+
+Adapter pattern is a structural design pattern that allows objects with incompatible interfaces to collaborate. It acts as a bridge between two incompatible interfaces, converting the interface of one class into another interface that a client expects. This pattern involves a single class which is responsible to join functionalities of independent or incompatible interfaces.
+
+The adapter pattern is also known as the wrapper pattern.
+
+## Implementation
+
+```js
+class Target {
+  request() {
+    return 'Target: The default target\'s behavior.';
+  }
+}
+
+class Adaptee {
+  specificRequest() {
+    return '.eetpadA eht fo roivaheb laicepS';
+  }
+}
+
+class Adapter extends Target {
+  constructor(adaptee) {
+    super();
+    this.adaptee = adaptee;
+  }
+
+  request() {
+    const result = this.adaptee.specificRequest().split('').reverse().join('');
+    return `Adapter: (TRANSLATED) ${result}`;
+  }
+}
+
+function clientCode(target) {
+  console.log(target.request());
+}
+
+console.log('Client: I can work just fine with the Target objects:');
+const target = new Target();
+clientCode(target);
+
+console.log('');
+
+const adaptee = new Adaptee();
+console.log('Client: The Adaptee class has a weird interface. See, I don\'t understand it:');
+console.log(`Adaptee: ${adaptee.specificRequest()}`);
+
+console.log('');
+
+console.log('Client: But I can work with it via the Adapter:');
+const adapter = new Adapter(adaptee);
+clientCode(adapter);
+```

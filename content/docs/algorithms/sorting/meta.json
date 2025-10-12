@@ -1,6 +1,5 @@
 {
   "pages": [
-    "index",
     "quickSort",
     "mergeSort",
     "bubbleSort",
@@ -11,6 +10,5 @@
     "radixSort",
     "bucketSort",
     "shellSort"
-  ],
-  "defaultOpen": true
+  ]
 }

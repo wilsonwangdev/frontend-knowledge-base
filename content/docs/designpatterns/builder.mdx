@@ -1,0 +1,82 @@
+---
+title: Builder
+---
+
+Builder Pattern is a creational design pattern that lets you construct complex objects step by step. The pattern allows you to produce different types and representations of an object using the same construction code.
+
+## Implementation
+
+```js
+class Builder {
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this.product = new Product();
+  }
+
+  producePartA() {
+    this.product.parts.push('PartA');
+  }
+
+  producePartB() {
+    this.product.parts.push('PartB');
+  }
+
+  producePartC() {
+    this.product.parts.push('PartC');
+  }
+
+  getProduct() {
+    const result = this.product;
+    this.reset();
+    return result;
+  }
+}
+
+class Product {
+  constructor() {
+    this.parts = [];
+  }
+
+  listParts() {
+    console.log(`Product parts: ${this.parts.join(', ')}`);
+  }
+}
+
+class Director {
+  setBuilder(builder) {
+    this.builder = builder;
+  }
+
+  buildMinimalViableProduct() {
+    this.builder.producePartA();
+  }
+
+  buildFullFeaturedProduct() {
+    this.builder.producePartA();
+    this.builder.producePartB();
+    this.builder.producePartC();
+  }
+}
+
+function clientCode(director) {
+  const builder = new Builder();
+  director.setBuilder(builder);
+
+  director.buildMinimalViableProduct();
+  builder.product.listParts();
+
+  director.buildFullFeaturedProduct();
+  builder.product.listParts();
+
+  director.buildMinimalViableProduct();
+  builder.product.listParts();
+
+  console.log(builder.product);
+}
+
+const director = new Director();
+clientCode(director);
+```

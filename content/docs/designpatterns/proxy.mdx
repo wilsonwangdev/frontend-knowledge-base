@@ -1,0 +1,43 @@
+---
+title: Proxy
+---
+
+Proxy pattern  is a structural design pattern that provides a surrogate or placeholder for another object to control access to it. It is used to add an extra layer of indirection between the client and the actual object being accessed, allowing the client to access the object without being aware of its existence.
+
+The Proxy pattern is used to provide a level of indirection between the client and the actual object being accessed. This allows the client to access the object without being aware of its existence, and to add additional functionality to the object's behavior.
+
+```js
+class RealSubject {
+  operation() {
+    console.log('RealSubject: Handling request.');
+  }
+}
+
+class Proxy {
+  constructor(realSubject) {
+    this.realSubject = realSubject;
+  }
+
+  operation() {
+    if (this.checkAccess()) {
+      this.realSubject.operation();
+      this.logAccess();
+    }
+  }
+
+  checkAccess() {
+    // Check if the client has access to the real subject
+    console.log('Proxy: Checking access prior to firing a real request.');
+    return true;
+  }
+
+  logAccess() {
+    console.log('Proxy: Logging the time of request.');
+  }
+}
+
+const realSubject = new RealSubject();
+const proxy = new Proxy(realSubject);
+
+proxy.operation();
+```

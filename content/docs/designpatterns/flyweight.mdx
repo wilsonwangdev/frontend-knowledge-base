@@ -1,0 +1,51 @@
+---
+title: FlyWeight
+---
+
+FlyWeight is a structural design pattern that lets you fit more objects into the available amount of RAM by sharing common parts of state between multiple objects instead of keeping all of the data in each object.
+
+This pattern is useful when you need to create a large number of similar objects, but the creation process is expensive or resource-intensive. By sharing common parts of state between multiple objects, you can reduce the overall memory usage of the application.
+
+The Flyweight pattern is often used in games and other applications where you need to create a large number of similar objects, but the creation process is expensive or resource-intensive. By sharing common parts of state between multiple objects, you can reduce the overall memory usage of the application.
+
+## Implementation
+
+The Flyweight pattern is implemented in the following way:
+
+1. Create a FlyweightFactory class that manages the creation and sharing of Flyweight objects.
+2. Create a Flyweight interface that defines the common methods for all Flyweight objects.
+3. Create concrete Flyweight classes that implement the Flyweight interface.
+4. Create a Client class that uses the FlyweightFactory to create and manage Flyweight objects.
+
+```typescript
+class FlyweightFactory {
+    private flyweights: { [key: string]: Flyweight } = {};
+
+    public getFlyweight(key: string): Flyweight {
+        if (!this.flyweights[key]) {
+            this.flyweights[key] = new ConcreteFlyweight();
+        }
+        return this.flyweights[key];
+    }
+}
+
+interface Flyweight {
+    operation(extrinsicState: number): void;
+}
+
+class ConcreteFlyweight implements Flyweight {
+    public operation(extrinsicState: number): void {
+        console.log(`ConcreteFlyweight: ${extrinsicState}`);
+    }
+}
+
+class Client {
+    private flyweightFactory: FlyweightFactory = new FlyweightFactory();
+
+    public main(): void {
+        const flyweight: Flyweight = this.flyweightFactory.getFlyweight("key");
+        flyweight.operation(1);
+        flyweight.operation(2);
+    }
+}
+```

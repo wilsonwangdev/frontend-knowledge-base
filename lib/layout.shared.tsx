@@ -38,18 +38,20 @@ export function baseOptions(locale: string): BaseLayoutProps {
       },
       {
         type: 'main',
+        text: locale === 'cn' ? '资源' : 'Resources',
+        url: `/${locale}/resources`,
+      },
+      {
+        text: locale === 'cn' ? 'AI' : 'AI',
+        url: `/${locale}/ai`,
+      },
+      {
         text: locale === 'cn' ? '博客' : 'Blog',
         url: `/${locale}/blog`,
       },
       {
-        type: 'main',
         text: locale === 'cn' ? '游乐场' : 'Playground',
         url: `/${locale}/playground`,
-      },
-      {
-        type: 'main',
-        text: locale === 'cn' ? '资源' : 'Resources',
-        url: `/${locale}/resources`,
       },
     ],
   };

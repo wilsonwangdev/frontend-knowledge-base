@@ -44,6 +44,18 @@ export const resources = defineCollections({
   }),
 });
 
+export const ai = defineCollections({
+  type: 'doc',
+  dir: 'content/ai',
+  schema: frontmatterSchema.extend({
+    author: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    preview: z.string().optional(),
+    date: z.iso.date().or(z.date()).optional(),
+    description: z.string().optional(),
+  }),
+});
+
 export default defineConfig({
   lastModifiedTime: 'git',
   mdxOptions: {

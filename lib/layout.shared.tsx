@@ -33,7 +33,7 @@ export function baseOptions(locale: string): BaseLayoutProps {
     links: [
       {
         type: 'main',
-        text: locale === 'cn' ? '文档' : 'Documentations',
+        text: locale === 'cn' ? '知识库' : 'Knowledge Base',
         url: `/${locale}/docs`,
       },
       {
@@ -45,6 +45,11 @@ export function baseOptions(locale: string): BaseLayoutProps {
         type: 'main',
         text: locale === 'cn' ? '游乐场' : 'Playground',
         url: `/${locale}/playground`,
+      },
+      {
+        type: 'main',
+        text: locale === 'cn' ? '资源' : 'Resources',
+        url: `/${locale}/resources`,
       },
     ],
   };

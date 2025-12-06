@@ -34,11 +34,7 @@ export default async function Layout({
           {
             title: 'Modules',
             url: '/docs/modules',
-          },
-          {
-            title: 'Resources',
-            url: '/docs/resources',
-          },
+          }
         ],
       }}
       {...baseOptions(lang)}

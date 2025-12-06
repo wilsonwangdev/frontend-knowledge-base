@@ -1,5 +1,5 @@
 import { createMDXSource } from 'fumadocs-mdx';
-import { docs, meta, blog as blogPosts } from '@/.source';
+import { docs, meta, blog as blogPosts, resources as resourcesPosts } from '@/.source';
 import { type InferPageType, loader } from 'fumadocs-core/source';
 import { i18n } from '@/lib/i18n';
 
@@ -13,6 +13,12 @@ export const source = loader({
 export const blog = loader({
   baseUrl: '/blog',
   source: createMDXSource(blogPosts),
+  i18n,
+});
+
+export const resources = loader({
+  baseUrl: '/resources',
+  source: createMDXSource(resourcesPosts),
   i18n,
 });
 

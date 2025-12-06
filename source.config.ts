@@ -35,6 +35,15 @@ export const blog = defineCollections({
   }),
 });
 
+export const resources = defineCollections({
+  type: 'doc',
+  dir: 'content/resources',
+  schema: frontmatterSchema.extend({
+    description: z.string().optional(),
+    preview: z.string().optional(),
+  }),
+});
+
 export default defineConfig({
   lastModifiedTime: 'git',
   mdxOptions: {

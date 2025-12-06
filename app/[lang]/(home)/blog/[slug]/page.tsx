@@ -15,7 +15,10 @@ export default async function Page(props: PageProps<'/[lang]/blog/[slug]'>) {
   const page = blog.getPage([params.slug]);
 
   if (!page) notFound();
-  const { body: Mdx, toc } = page.data;
+  const { body: Mdx } = page.data;
+  const headings = Array.isArray(page.data.toc) ? page.data.toc : [];
+  const disableToc = (page.data as Record<string, unknown>)['toc'] === false;
+  const showToc = !disableToc && headings.length > 0;
 
   return (
     <article className="flex flex-col mx-auto w-full max-w-[800px] px-4 py-8">
@@ -29,7 +32,7 @@ export default async function Page(props: PageProps<'/[lang]/blog/[slug]'>) {
           <p className="font-medium">
             {new Date(
               page.data.date ??
-                path.basename(page.path, path.extname(page.path)),
+                path.basename(page.path, path.extname(page.path))
             ).toDateString()}
           </p>
         </div>
@@ -47,14 +50,14 @@ export default async function Page(props: PageProps<'/[lang]/blog/[slug]'>) {
               buttonVariants({
                 size: 'sm',
                 variant: 'secondary',
-              }),
+              })
             )}
           >
             Back
           </Link>
         </div>
 
-        <InlineTOC items={toc} />
+        {showToc && <InlineTOC items={headings} />}
         <Mdx components={getMDXComponents()} />
       </div>
     </article>
@@ -62,7 +65,7 @@ export default async function Page(props: PageProps<'/[lang]/blog/[slug]'>) {
 }
 
 export async function generateMetadata(
-  props: PageProps<'/[lang]/blog/[slug]'>,
+  props: PageProps<'/[lang]/blog/[slug]'>
 ): Promise<Metadata> {
   const params = await props.params;
   const page = blog.getPage([params.slug]);
@@ -71,8 +74,7 @@ export async function generateMetadata(
 
   return createMetadata({
     title: page.data.title,
-    description:
-      page.data.description,
+    description: page.data.description,
   });
 }
 
